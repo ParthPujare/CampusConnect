@@ -1,0 +1,29 @@
+Project Name: CampusConnect
+Tagline: The Ultimate College Event Hub
+
+1. Problem Statement
+   Students often miss out on college events due to scattered information across notice boards, WhatsApp groups, and emails. There is a need for a centralized platform to bridge the communication gap.
+
+2. Solution
+   CampusConnect is a full-stack web application that serves as a one-stop destination for all college events. It features a student-facing interface for discovery and registration, and an admin panel for event management.
+
+3. Core Features
+   - Centralized Event Hub: All events in one place.
+   - Search & Filter: Find events by category or name.
+   - Calendar View: Visual representation of the event schedule.
+   - Admin Dashboard: CRUD operations for event management.
+
+4. Unique Features (Innovation)
+   - Micro-animations: Used Framer Motion for smooth hover effects and page transitions to enhance UX.
+   - Instant Updates: Changes in the admin panel reflect immediately on the frontend.
+   - Responsive & Modern UI: Glassmorphism effects and gradient typography for a premium look.
+
+5. Tech Stack
+   - Frontend: React.js, Tailwind CSS, Framer Motion
+   - Backend: FastAPI (Python)
+   - Database: SQLite (for portability/hackathon), scalable to PostgreSQL.
+
+6. Future Scope
+   - User Authentication for Students.
+   - Real-time notifications via Email/SMS.
+   - Ticket booking payment integration.
