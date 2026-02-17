@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Clock, MapPin, AlertTriangle, BookOpen, Calendar, Bell } from 'lucide-react';
+import { Clock, MapPin, AlertTriangle, BookOpen, Calendar, Bell, Share2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const StudentDashboard = () => {
@@ -42,6 +42,16 @@ const StudentDashboard = () => {
 
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
+    const shareToWhatsApp = (message) => {
+        const text = encodeURIComponent(`🔔 CampusConnect Alert: ${message}`);
+        window.open(`https://wa.me/?text=${text}`, '_blank');
+    };
+
+    const shareToLinkedIn = (message) => {
+        const text = encodeURIComponent(`CampusConnect Alert: ${message}`);
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.origin)}&summary=${text}`, '_blank');
+    };
+
     return (
         <div className="pt-24 px-4 max-w-7xl mx-auto min-h-screen pb-20">
             {user && (
@@ -65,17 +75,47 @@ const StudentDashboard = () => {
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 key={alert.id}
-                                className={`p-4 rounded-xl border-l-4 shadow-sm flex items-start ${alert.type === 'cancel' ? 'bg-red-50 dark:bg-red-900/20 border-red-500 text-red-700 dark:text-red-300' :
-                                        alert.type === 'reschedule' ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-500 text-yellow-700 dark:text-yellow-300' :
-                                            'bg-blue-50 dark:bg-blue-900/20 border-blue-500 text-blue-700 dark:text-blue-300'
+                                className={`p-4 rounded-xl border-l-4 shadow-sm ${alert.type === 'cancel' ? 'bg-red-50 dark:bg-red-900/20 border-red-500' :
+                                        alert.type === 'reschedule' ? 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-500' :
+                                            'bg-blue-50 dark:bg-blue-900/20 border-blue-500'
                                     }`}
                             >
-                                <AlertTriangle size={20} className="mr-3 mt-0.5 flex-shrink-0" />
-                                <div>
-                                    <p className="font-semibold">{alert.message}</p>
-                                    <span className="text-xs opacity-75 mt-1 block">
-                                        {new Date(alert.timestamp).toLocaleDateString()}
-                                    </span>
+                                <div className="flex items-start justify-between">
+                                    <div className="flex items-start flex-1">
+                                        <AlertTriangle size={20} className={`mr-3 mt-0.5 flex-shrink-0 ${alert.type === 'cancel' ? 'text-red-700 dark:text-red-300' :
+                                                alert.type === 'reschedule' ? 'text-yellow-700 dark:text-yellow-300' :
+                                                    'text-blue-700 dark:text-blue-300'
+                                            }`} />
+                                        <div className="flex-1">
+                                            <p className={`font-semibold ${alert.type === 'cancel' ? 'text-red-700 dark:text-red-300' :
+                                                    alert.type === 'reschedule' ? 'text-yellow-700 dark:text-yellow-300' :
+                                                        'text-blue-700 dark:text-blue-300'
+                                                }`}>{alert.message}</p>
+                                            <span className="text-xs opacity-75 mt-1 block">
+                                                {new Date(alert.timestamp).toLocaleDateString()}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {/* Share Buttons - Show for reschedule and cancel types */}
+                                    {(alert.type === 'reschedule' || alert.type === 'cancel') && (
+                                        <div className="flex gap-2 ml-4">
+                                            <button
+                                                onClick={() => shareToWhatsApp(alert.message)}
+                                                className="p-2 rounded-lg bg-green-500 hover:bg-green-600 text-white transition-colors"
+                                                title="Share on WhatsApp"
+                                            >
+                                                <Share2 size={16} />
+                                            </button>
+                                            <button
+                                                onClick={() => shareToLinkedIn(alert.message)}
+                                                className="p-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+                                                title="Share on LinkedIn"
+                                            >
+                                                <Share2 size={16} />
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
                             </motion.div>
                         ))}

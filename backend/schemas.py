@@ -72,10 +72,13 @@ class AlertCreate(AlertBase):
 
 class Alert(AlertBase):
     id: int
-    timestamp: Optional[str] = None # Datetime serialized
+    timestamp: Optional[str] = None
 
     class Config:
         from_attributes = True
+        json_encoders = {
+            'datetime': lambda v: v.isoformat() if v else None
+        }
 
 # Hackathon Schemas
 class HackathonBase(BaseModel):

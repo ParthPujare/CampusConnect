@@ -77,9 +77,20 @@ def read_timetable(db: Session = Depends(get_db)):
 def create_timetable_entry(entry: schemas.TimetableCreate, db: Session = Depends(get_db)):
     return crud.create_timetable_entry(db, entry)
 
-@app.get("/alerts/", response_model=List[schemas.Alert])
+@app.get("/alerts/")
 def read_alerts(db: Session = Depends(get_db)):
-    return crud.get_alerts(db)
+    alerts = crud.get_alerts(db)
+    # Convert datetime to string for JSON serialization
+    result = []
+    for alert in alerts:
+        alert_dict = {
+            "id": alert.id,
+            "message": alert.message,
+            "type": alert.type,
+            "timestamp": alert.timestamp.isoformat() if alert.timestamp else None
+        }
+        result.append(alert_dict)
+    return result
 
 @app.post("/alerts/", response_model=schemas.Alert)
 def create_alert(alert: schemas.AlertCreate, db: Session = Depends(get_db)):

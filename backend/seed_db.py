@@ -83,10 +83,31 @@ def seed_data():
     print("Seeding Timetable...")
     if not db.query(models.Timetable).first():
         timetable = [
+            # Monday
             schemas.TimetableCreate(day="Monday", time="09:00 AM - 10:00 AM", subject="Data Structures", room="LH-101"),
             schemas.TimetableCreate(day="Monday", time="10:00 AM - 11:00 AM", subject="Operating Systems", room="LH-102"),
+            schemas.TimetableCreate(day="Monday", time="11:30 AM - 12:30 PM", subject="Computer Networks", room="LH-101"),
+            schemas.TimetableCreate(day="Monday", time="02:00 PM - 03:00 PM", subject="Web Development", room="Lab-2"),
+            
+            # Tuesday
+            schemas.TimetableCreate(day="Tuesday", time="09:00 AM - 10:00 AM", subject="Algorithms", room="LH-103"),
+            schemas.TimetableCreate(day="Tuesday", time="10:00 AM - 11:00 AM", subject="DBMS", room="LH-101"),
             schemas.TimetableCreate(day="Tuesday", time="11:00 AM - 01:00 PM", subject="DBMS Lab", room="Lab-3"),
-            schemas.TimetableCreate(day="Wednesday", time="09:00 AM - 10:00 AM", subject="Algorithms", room="LH-101"),
+            schemas.TimetableCreate(day="Tuesday", time="02:00 PM - 03:00 PM", subject="Machine Learning", room="LH-104"),
+            
+            # Wednesday
+            schemas.TimetableCreate(day="Wednesday", time="09:00 AM - 10:00 AM", subject="Software Engineering", room="LH-102"),
+            schemas.TimetableCreate(day="Wednesday", time="10:00 AM - 11:00 AM", subject="Compiler Design", room="LH-101"),
+            schemas.TimetableCreate(day="Wednesday", time="11:30 AM - 12:30 PM", subject="Cloud Computing", room="LH-103"),
+            
+            # Thursday
+            schemas.TimetableCreate(day="Thursday", time="09:00 AM - 10:00 AM", subject="Data Structures", room="LH-101"),
+            schemas.TimetableCreate(day="Thursday", time="10:00 AM - 12:00 PM", subject="OS Lab", room="Lab-1"),
+            schemas.TimetableCreate(day="Thursday", time="02:00 PM - 04:00 PM", subject="Network Lab", room="Lab-4"),
+            
+            # Friday
+            schemas.TimetableCreate(day="Friday", time="09:00 AM - 10:00 AM", subject="Algorithms", room="LH-103"),
+            schemas.TimetableCreate(day="Friday", time="10:00 AM - 11:00 AM", subject="Aptitude Training", room="LH-201"),
             schemas.TimetableCreate(day="Friday", time="02:00 PM - 04:00 PM", subject="Project Work", room="Lab-1"),
         ]
         for t in timetable:
@@ -95,9 +116,12 @@ def seed_data():
     print("Seeding Alerts...")
     if not db.query(models.Alert).first():
         alerts = [
-            schemas.AlertCreate(message="DBMS Lab rescheduled to 2:00 PM today.", type="reschedule"),
-            schemas.AlertCreate(message="Operating Systems class cancelled.", type="cancel"),
-            schemas.AlertCreate(message="Guest lecture on AI at 5:00 PM in Auditorium.", type="info"),
+            schemas.AlertCreate(message="DBMS Lab rescheduled from 11:00 AM to 2:00 PM today in Lab-3.", type="reschedule"),
+            schemas.AlertCreate(message="Operating Systems class on Thursday cancelled due to faculty meeting.", type="cancel"),
+            schemas.AlertCreate(message="Guest lecture on AI & Machine Learning at 5:00 PM in Main Auditorium by Dr. Rajesh Kumar.", type="info"),
+            schemas.AlertCreate(message="Web Development class moved to Lab-5 instead of Lab-2.", type="reschedule"),
+            schemas.AlertCreate(message="Tomorrow's Algorithms class cancelled. Self-study assigned.", type="cancel"),
+            schemas.AlertCreate(message="Placement drive by TCS on Friday. Register at placement cell.", type="info"),
         ]
         for a in alerts:
             crud.create_alert(db, a)
