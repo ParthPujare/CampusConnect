@@ -56,9 +56,20 @@ CampusConnect is a centralized platform designed to bridge the gap between event
     # Run the server
     uvicorn main:app --reload
     ```
+    uvicorn main:app --reload
+    ```
     The application will be available at [`http://localhost:8000`](http://localhost:8000).
     API docs available at [`http://localhost:8000/docs`](http://localhost:8000/docs).
 
+### Student Zone
+*   **Login**: Access via "Student Zone" in the navbar.
+*   **Default Credentials**: Create any account (auto-registers) or use `student`/`student`.
+*   **Dashboard**: View your personalized timetable and real-time alerts.
+
+### Hackathons & Experiences
+*   **Hackathons**: Browse upcoming hackathons with a "Sponsored Only" filter.
+*   **Experiences**: Read success stories from other students.
+    
 ### Admin Credentials (Demo)
 *   **Username**: admin
 *   **Password**: admin

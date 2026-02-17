@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Calendar, Search, Home, Shield, Sun, Moon } from 'lucide-react';
+import { Calendar, Search, Home, Shield, Sun, Moon, Code, Award, User } from 'lucide-react';
 
 const Navbar = () => {
     const location = useLocation();
@@ -18,7 +18,10 @@ const Navbar = () => {
     const navItems = [
         { path: '/', label: 'Home', icon: Home },
         { path: '/explore', label: 'Explore', icon: Search },
+        { path: '/hackathons', label: 'Hackathons', icon: Code },
+        { path: '/experiences', label: 'Experiences', icon: Award },
         { path: '/calendar', label: 'Calendar', icon: Calendar },
+        { path: '/student-login', label: 'Student Zone', icon: User },
         { path: '/admin', label: 'Admin', icon: Shield },
     ];
 

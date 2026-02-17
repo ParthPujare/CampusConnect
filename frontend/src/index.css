@@ -1,14 +1,32 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #4F46E5;
-  --color-secondary: #EC4899;
-  --color-dark: #1F2937;
+  --color-primary: #4338ca;
+  /* Indigo 700 - Darker for better contrast */
+  --color-secondary: #be185d;
+  /* Pink 700 */
+  --color-dark: #111827;
+  /* Gray 900 */
+  --color-light: #f9fafb;
+  /* Gray 50 */
 }
 
 body {
-  @apply bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100;
+  @apply bg-light text-gray-900 dark:bg-dark dark:text-gray-100 antialiased;
   font-family: 'Inter', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-bold tracking-tight text-gray-900 dark:text-white;
+}
+
+p {
+  @apply text-gray-700 dark:text-gray-300 leading-relaxed;
 }
 
 /* Custom Scrollbar */

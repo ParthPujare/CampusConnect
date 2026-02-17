@@ -57,6 +57,50 @@ def login(admin: schemas.AdminCreate, db: Session = Depends(get_db)):
     
     return {"message": "Login successful", "username": admin.username}
 
+@app.post("/students/login")
+def student_login(student: schemas.StudentCreate, db: Session = Depends(get_db)):
+    # Hackathon shortcut: Auto-create student if not exists
+    db_student = crud.get_student_by_username(db, username=student.username)
+    if not db_student:
+         return crud.create_student(db, student)
+    
+    if not crud.pwd_context.verify(student.password, db_student.password_hash):
+        raise HTTPException(status_code=400, detail="Incorrect password")
+    
+    return {"message": "Login successful", "username": student.username, "full_name": db_student.full_name}
+
+@app.get("/timetable/", response_model=List[schemas.Timetable])
+def read_timetable(db: Session = Depends(get_db)):
+    return crud.get_timetable(db)
+
+@app.post("/timetable/", response_model=schemas.Timetable)
+def create_timetable_entry(entry: schemas.TimetableCreate, db: Session = Depends(get_db)):
+    return crud.create_timetable_entry(db, entry)
+
+@app.get("/alerts/", response_model=List[schemas.Alert])
+def read_alerts(db: Session = Depends(get_db)):
+    return crud.get_alerts(db)
+
+@app.post("/alerts/", response_model=schemas.Alert)
+def create_alert(alert: schemas.AlertCreate, db: Session = Depends(get_db)):
+    return crud.create_alert(db, alert)
+
+@app.get("/hackathons/", response_model=List[schemas.Hackathon])
+def read_hackathons(sponsored: bool = False, db: Session = Depends(get_db)):
+    return crud.get_hackathons(db, sponsored_only=sponsored)
+
+@app.post("/hackathons/", response_model=schemas.Hackathon)
+def create_hackathon(hackathon: schemas.HackathonCreate, db: Session = Depends(get_db)):
+    return crud.create_hackathon(db, hackathon)
+
+@app.get("/experiences/", response_model=List[schemas.Experience])
+def read_experiences(db: Session = Depends(get_db)):
+    return crud.get_experiences(db)
+
+@app.post("/experiences/", response_model=schemas.Experience)
+def create_experience(experience: schemas.ExperienceCreate, db: Session = Depends(get_db)):
+    return crud.create_experience(db, experience)
+
 # Serve static files from the frontend build directory
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
